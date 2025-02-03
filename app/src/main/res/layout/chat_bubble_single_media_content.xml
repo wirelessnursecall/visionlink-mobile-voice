@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="onLongClickListener"
+            type="View.OnLongClickListener" />
+        <variable
+            name="model"
+            type="org.linphone.ui.main.chat.model.FileModel" />
+        <variable
+            name="inflatedVisibility"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="@{inflatedVisibility == View.VISIBLE ? View.VISIBLE : View.GONE}"
+        inflatedLifecycleOwner="@{true}">
+
+        <ImageView
+            android:id="@+id/image"
+            android:onClick="@{() -> model.onClick()}"
+            android:onLongClick="@{onLongClickListener}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:contentDescription="@{model.isVideoPreview ? @string/content_description_chat_bubble_video : @string/content_description_chat_bubble_image}"
+            coilBubble="@{model.path}"
+            app:layout_constraintHeight_max="@dimen/chat_bubble_big_image_max_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/default_text_style_600"
+            android:id="@+id/video_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@{model.audioVideoDuration, default=`00:42`}"
+            android:textColor="@{model.isVideoPreview ? @color/white : @color/main2_600}"
+            android:textSize="12sp"
+            android:visibility="@{model.isVideoPreview &amp;&amp; model.audioVideoDuration.length() > 0 ? View.VISIBLE : View.GONE, default=gone}"
+            app:layout_constraintBottom_toBottomOf="@id/image"
+            app:layout_constraintStart_toStartOf="@id/image"/>
+
+        <ImageView
+            android:id="@+id/video_preview"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:src="@drawable/play_fill"
+            android:contentDescription="@null"
+            android:visibility="@{model.isVideoPreview ? View.VISIBLE : View.GONE, default=gone}"
+            app:layout_constraintTop_toTopOf="@id/image"
+            app:layout_constraintBottom_toBottomOf="@id/image"
+            app:layout_constraintStart_toStartOf="@id/image"
+            app:layout_constraintEnd_toEndOf="@id/image"
+            app:tint="@color/white" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/transfer_progress"
+            android:layout_width="@dimen/chat_bubble_grid_image_size"
+            android:layout_height="@dimen/chat_bubble_grid_image_size"
+            android:padding="18dp"
+            android:indeterminate="false"
+            android:progress="@{model.transferProgress}"
+            android:max="100"
+            android:visibility="@{model.transferProgress == -1 || model.transferProgress >= 100 ? View.GONE : View.VISIBLE}"
+            app:trackColor="?attr/color_main1_100"
+            app:indicatorColor="?attr/color_main1_500"
+            app:layout_constraintTop_toTopOf="@id/image"
+            app:layout_constraintBottom_toBottomOf="@id/image"
+            app:layout_constraintStart_toStartOf="@id/image"
+            app:layout_constraintEnd_toEndOf="@id/image"
+            tools:progress="40" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

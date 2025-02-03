@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="removeParticipantClickListener"
+            type="View.OnClickListener" />
+        <variable
+            name="seeContactProfileClickListener"
+            type="View.OnClickListener" />
+        <variable
+            name="addToContactsClickListener"
+            type="View.OnClickListener" />
+        <variable
+            name="setAdminClickListener"
+            type="View.OnClickListener" />
+        <variable
+            name="unsetAdminClickListener"
+            type="View.OnClickListener" />
+        <variable
+            name="isParticipantContact"
+            type="Boolean" />
+        <variable
+            name="isParticipantAdmin"
+            type="Boolean" />
+        <variable
+            name="isMeAdmin"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/popup_menu_padding"
+        android:paddingStart="@dimen/popup_menu_padding"
+        android:background="@drawable/shape_round_popup_menu_background">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/default_text_style"
+            android:id="@+id/show_contact"
+            android:onClick="@{seeContactProfileClickListener}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/popup_menu_item_top_margin"
+            android:visibility="@{isParticipantContact ? View.VISIBLE : View.GONE}"
+            android:text="@string/conversation_info_menu_go_to_contact"
+            android:textSize="14sp"
+            android:textColor="?attr/color_main2_500"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:drawableStart="@drawable/address_book"
+            android:drawablePadding="5dp"
+            app:drawableTint="?attr/color_main2_700"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/add_to_contacts"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/default_text_style"
+            android:id="@+id/add_to_contacts"
+            android:onClick="@{addToContactsClickListener}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/popup_menu_item_top_margin"
+            android:visibility="@{isParticipantContact ? View.GONE : View.VISIBLE, default=gone}"
+            android:text="@string/conversation_info_menu_add_to_contacts"
+            android:textSize="14sp"
+            android:textColor="?attr/color_main2_500"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:drawableStart="@drawable/user_plus"
+            android:drawablePadding="5dp"
+            app:drawableTint="?attr/color_main2_700"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/show_contact"
+            app:layout_constraintBottom_toTopOf="@id/set_admin"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/default_text_style"
+            android:id="@+id/set_admin"
+            android:onClick="@{setAdminClickListener}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/popup_menu_item_top_margin"
+            android:visibility="@{isParticipantAdmin || !isMeAdmin ? View.GONE : View.VISIBLE}"
+            android:text="@string/conversation_info_admin_menu_set_participant_admin"
+            android:textSize="14sp"
+            android:textColor="?attr/color_main2_500"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:drawableStart="@drawable/user_circle"
+            android:drawablePadding="5dp"
+            app:drawableTint="?attr/color_main2_700"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_to_contacts"
+            app:layout_constraintBottom_toTopOf="@id/unset_admin"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/default_text_style"
+            android:id="@+id/unset_admin"
+            android:onClick="@{unsetAdminClickListener}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/popup_menu_item_top_margin"
+            android:visibility="@{isParticipantAdmin &amp;&amp; isMeAdmin ? View.VISIBLE : View.GONE, default=gone}"
+            android:text="@string/conversation_info_admin_menu_unset_participant_admin"
+            android:textSize="14sp"
+            android:textColor="?attr/color_main2_500"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:drawableStart="@drawable/user_circle"
+            android:drawablePadding="5dp"
+            app:drawableTint="?attr/color_main2_700"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/set_admin"
+            app:layout_constraintBottom_toTopOf="@id/separator"/>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/popup_menu_item_top_margin"
+            android:background="?attr/color_main2_400"
+            android:visibility="@{isMeAdmin ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/unset_admin"
+            app:layout_constraintBottom_toTopOf="@id/remove_participant" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/default_text_style"
+            android:id="@+id/remove_participant"
+            android:onClick="@{removeParticipantClickListener}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/popup_menu_item_top_margin"
+            android:text="@string/conversation_info_admin_menu_remove_participant"
+            android:textSize="14sp"
+            android:textColor="?attr/color_danger_500"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:visibility="@{isMeAdmin ? View.VISIBLE : View.GONE}"
+            android:drawableStart="@drawable/trash_simple"
+            android:drawablePadding="5dp"
+            app:drawableTint="?attr/color_danger_500"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator"
+            app:layout_constraintBottom_toTopOf="@id/bottom_anchor"/>
+
+        <View
+            android:id="@+id/bottom_anchor"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/popup_menu_item_top_margin"
+            app:layout_constraintWidth_max="@dimen/popup_menu_width"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/remove_participant"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

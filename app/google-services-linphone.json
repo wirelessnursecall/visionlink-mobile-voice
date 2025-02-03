@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "274863535539",
+    "project_id": "visionlink-ii-mobile-voice",
+    "storage_bucket": "visionlink-ii-mobile-voice.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274863535539:android:8261585bd4fdfd315e47c6",
+        "android_client_info": {
+          "package_name": "org.linphone.visionlink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0jiIGge4upPyIEkFtTNTwwydCYaMdu80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

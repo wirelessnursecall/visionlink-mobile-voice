@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="org.linphone.ui.call.viewmodel.CurrentCallViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/call_main_actions_menu_height"
+        android:paddingBottom="5dp"
+        android:background="@drawable/shape_call_bottom_sheet_background">
+
+        <ImageView
+            android:onClick="@{() -> viewModel.hangUp()}"
+            android:id="@+id/hang_up"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/call_button_size"
+            android:layout_marginStart="16dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:src="@drawable/phone_disconnect"
+            android:contentDescription="@string/content_description_hang_up_call"
+            android:background="@drawable/squircle_red_button_background"
+            app:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:id="@+id/toggle_video"
+            android:layout_width="@dimen/call_button_size"
+            android:layout_height="@dimen/call_button_size"
+            android:layout_marginEnd="16dp"
+            android:padding="@dimen/call_button_icon_padding"
+            android:visibility="@{View.GONE}"
+            android:contentDescription="@null"
+            android:src="@{viewModel.isVideoEnabled ? @drawable/video_camera : @drawable/video_camera_slash, default=@drawable/video_camera}"
+            android:background="@drawable/shape_round_in_call_disabled_button_background"
+            app:tint="@color/gray_400"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/hang_up"
+            app:layout_constraintEnd_toStartOf="@id/toggle_mute_mic" />
+
+        <ImageView
+            android:onClick="@{() -> viewModel.toggleMuteMicrophone()}"
+            android:id="@+id/toggle_mute_mic"
+            android:layout_width="@dimen/call_button_size"
+            android:layout_height="@dimen/call_button_size"
+            android:layout_marginEnd="16dp"
+            android:padding="@dimen/call_button_icon_padding"
+            android:contentDescription="@string/content_description_toggle_microphone"
+            android:src="@{viewModel.isMicrophoneMuted ? @drawable/microphone_slash : @drawable/microphone, default=@drawable/microphone}"
+            android:background="@drawable/in_call_button_background_red"
+            app:tint="@color/in_call_button_tint_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/toggle_video"
+            app:layout_constraintEnd_toStartOf="@id/change_audio_output" />
+
+        <ImageView
+            android:onClick="@{() -> viewModel.changeAudioOutputDevice()}"
+            android:id="@+id/change_audio_output"
+            android:layout_width="@dimen/call_button_size"
+            android:layout_height="@dimen/call_button_size"
+            android:layout_marginEnd="16dp"
+            android:padding="@dimen/call_button_icon_padding"
+            android:enabled="@{viewModel.isOutgoingRinging}"
+            android:contentDescription="@string/content_description_change_output_audio_device"
+            android:src="@{viewModel.isHeadsetEnabled ? @drawable/headset : viewModel.isBluetoothEnabled ? @drawable/bluetooth : viewModel.isSpeakerEnabled ? @drawable/speaker_high : @drawable/speaker_slash, default=@drawable/speaker_slash}"
+            android:background="@drawable/in_call_button_background_red"
+            app:tint="@color/in_call_button_tint_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/toggle_mute_mic"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
