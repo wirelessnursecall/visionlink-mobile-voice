@@ -80,7 +80,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:src="@drawable/medical_image"
+                    android:src="@drawable/call_medical_visionlink_mobile"
                     android:contentDescription="@null"
                     app:layout_constraintHeight_max="200dp"
                     app:layout_constraintBottom_toTopOf="@id/no_calls_label"

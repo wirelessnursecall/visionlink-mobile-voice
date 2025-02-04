@@ -216,7 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/medical_image"
+                android:src="@drawable/call_medical_visionlink_mobile"
                 android:contentDescription="@null"
                 android:visibility="@{viewModel.isEmpty ? View.VISIBLE : View.GONE}"
                 app:layout_constraintDimensionRatio="1:1"
