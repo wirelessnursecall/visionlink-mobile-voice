@@ -1,6 +1,8 @@
 
 [![pipeline status](https://gitlab.linphone.org/BC/public/linphone-android/badges/master/pipeline.svg)](https://gitlab.linphone.org/BC/public/linphone-android/commits/master) [![weblate status](https://weblate.linphone.org/widgets/linphone/-/linphone-android/svg-badge.svg)](https://weblate.linphone.org/engage/linphone/?utm_source=widget)
 
+### This is a customized version of Linphone.
+
 Linphone is an open source softphone for voice and video over IP calling and instant messaging.
 
 It is fully SIP-based, for all calling, presence and IM features.
